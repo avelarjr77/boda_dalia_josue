@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="invitation-container">
+        <!-- SVG floral decorativo arriba -->
+        <div class="floral-top">
+            
+        </div>
+        <header class="fade-in header-responsive" style="background-image: url('sources/img1.png'); position: relative; background-size: cover; background-repeat: no-repeat; background-position: center top; min-height: 220px; display: flex; align-items: center; justify-content: center; padding: 1.5em 1em;">
+             <h1 style="text-align: center;">
+                Dalia Cazún<br>
+                <span class="amp" style="display: block; font-size: 2em;">&</span>
+                Josué Díaz
+            </h1>
+        </header>
+        <br>
+        <section>
+            <div style="text-align: center; margin-bottom: 1em;">
+                <audio id="wedding-audio" controls loop autoplay>
+                    <source src="sources/audio.weba" type="audio/webm">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+            </div>
+        </section>
+        <section style="margin-bottom: 1.2em;"></section>
+            <div class="bible-verse" style="text-align: center; margin: 1.2em 0 0.7em 0;">
+                <blockquote style="font-style: italic; color: #870925; font-size: 0.98em; margin: 0 auto; max-width: 370px; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.01em;">
+                    “Mejor son dos que uno; ...Porque si cayeren, el uno levantará a su compañero.”
+                    <br>
+                    <span style="display: block; margin-top: 0.7em; font-size: 0.85em; color: #6a2236; font-family: 'Marcellus', serif; letter-spacing: 0.03em;">
+                        Eclesiastés 4:9-10
+                    </span>
+                </blockquote>
+            </div>
+        </section>
+        <section class="countdown-section fade-in" style="margin-top: 0;"></section>
+            <h2 style="font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-weight: 600;">FALTAN</h2>
+            <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+            <div id="countdown" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="countdown-table-wrapper" style="width: 100%; max-width: 400px;">
+                    <div style="display: flex; justify-content: center; gap: 1.2em; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div style="width: 2.8em; height: 2.8em; background: #870925; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3em; color: #fff; margin: 0 auto;" id="days">00</div>
+                            <div style="padding-top: 0.3em; font-weight: 500; color: #870925; font-size: 1em;">DÍAS</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 2.8em; height: 2.8em; background: #870925; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3em; color: #fff; margin: 0 auto;" id="hours">00</div>
+                            <div style="padding-top: 0.3em; font-weight: 500; color: #870925; font-size: 1em;">HORAS</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 2.8em; height: 2.8em; background: #870925; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3em; color: #fff; margin: 0 auto;" id="minutes">00</div>
+                            <div style="padding-top: 0.3em; font-weight: 500; color: #870925; font-size: 1em;">MIN</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 2.8em; height: 2.8em; background: #870925; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3em; color: #fff; margin: 0 auto;" id="seconds">00</div>
+                            <div style="padding-top: 0.3em; font-weight: 500; color: #870925; font-size: 1em;">SEG</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section style="text-align: center;">
+            <p>Nos encantaría que nos acompañaras en este día tan especial.</p>
+            <div class="wedding-date" style="display: flex; justify-content: center; align-items: center; gap: 0.5em; margin-bottom: 1em;">
+                <div style="font-size: 1.2em; letter-spacing: 2px; border-bottom: 2px solid #870925; border-top: 2px solid #870925; padding: 0.5em 0.6em; color: #870925;">
+                    Domingo
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <span style="font-size: 3.5em; font-weight: bold; color: #870925;">17</span>
+                </div>
+                <div style="font-size: 1.2em; letter-spacing: 2px; border-bottom: 2px solid #870925; border-top: 2px solid #870925; padding: 0.5em 0.6em; color: #870925;">
+                    &nbsp;Agosto&nbsp;
+                </div>                
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-top: -0.5em;">
+                <div style="font-size: 1.2em; color: #870925;">
+                    HORA: 9:30 AM
+                </div>
+            </div>
+        </section>
+        <br>
+        <section class="itinerary">
+            <section>
+                <div class="location fade-in">
+                <span style="font-size: 2em; vertical-align: middle; margin-right: 0.1em;" title="Iglesia">
+                    <!-- Icono SVG de iglesia -->
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 32 32" fill="none" style="vertical-align: middle; margin-left: 0.2em;">
+                        <image href="sources/igle.svg" width="32" height="32" style="color: #870925;" />
+                    </svg>
+                </span>
+                <p style="color: #000;"><strong>Iglesia Salem A.D.</strong></p>
+                <p style="font-size: 0.75em; color: #000;position: relative; top: 0em !important;">Calle El Socorro, Barrio El Centro,<br>El Porvenir, Santa Ana</p>
+                <div style="margin-top: 1em;"></div>
+                <a href="https://maps.app.goo.gl/qnaAGR9CDKxUxi1T8" target="_blank" rel="noopener" class="btn-outline" 
+                style="display: inline-block; min-width: 110px; padding: 0.45em 1.2em; font-size: 0.9em; border-radius: 22px; border: 2px solid #870925; color: #870925; background: #fff; text-align: center; transition: background 0.2s, color 0.2s;">
+                    <span style="font-size: 0.95em;">Ubicación</span>
+                </a>
+                </div>
+                </section>
+                <section>
+                    <div style="text-align: center; margin-top: 1em;">
+                        <svg width="4.5em" height="2.3em" viewBox="0 0 80 80" fill="none" style="vertical-align: middle; margin-left: 0.2em;">
+                        <image href="sources/sms.svg" width="80" height="80" style="color: #870925;" />
+                    </svg>
+                    <p><strong>Confirmar asistencia</strong></p>
+                    <p style="font-size: 0.75em; top: 0em !important;">Por favor confirma tu asistencia,<br>¡Esperamos que estés allí!</p>
+                    <a href="https://wa.me/50368432823?text=Hola%2C%20quiero%20confirmar%20mi%20asistencia%20a%20la%20boda%20de%20Yuli%20y%20Josu%C3%A9." 
+                        target="_blank" 
+                        rel="noopener" 
+                        class="btn-outline"
+                        style="display: inline-block; min-width: 110px; padding: 0.45em 1.2em; font-size: 1em; border-radius: 22px; border: 2px solid #870925; color: #870925; background: #fff; text-align: center; transition: background 0.2s, color 0.2s;">
+                         <span style="font-size: 0.95em;">Confirmar</span>
+                    </a>
+                </div>
+                </section>
+                <section>
+                    <div style="text-align: center; margin-top: 1.5em;">
+                        <svg width="3em" height="3em" viewBox="0 0 64 64" fill="none" style="vertical-align: middle;">
+                            <image href="sources/camera.svg" width="64" height="64" />
+                        </svg>
+                        <p><strong>¡Comparte tus fotos de la boda!</strong></p>
+                        <p style="font-size: 0.85em;">Sube tus fotos y recuerdos especiales aquí:</p>
+                        <a href="https://drive.google.com/drive/folders/1a_-gw_78HdFJAZbj4WdruyDPhCHYZ0Zi?usp=sharing" 
+                           target="_blank" 
+                           rel="noopener" 
+                           class="btn-outline" 
+                           style="display: inline-block; min-width: 110px; padding: 0.45em 1.2em; font-size: 1em; border-radius: 22px; border: 2px solid #870925; color: #870925; background: #fff; text-align: center; transition: background 0.2s, color 0.2s;">
+                            <span style="font-size: 0.95em;">Subir fotos</span>
+                        </a>
+                    </div>
+                </section>
+        </section>
+       
+        <footer>         
+            <p style="font-family: 'Dancing Script', cursive; font-size: 2em; color: #870925; margin: 0.5em 0;">
+                Te esperamos
+            </p>
+            <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+            <p>Dalia & Josué <br> 17.08.2025</p>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
