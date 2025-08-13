@@ -6,8 +6,53 @@
     <title>Invitación - Boda D & J</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="sources/favicon.ico">
+    <!-- Open Graph / Twitter Cards -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Invitación - Boda Dalia & Josué">
+    <meta property="og:description" content="Acompáñanos el 17 de agosto a celebrar nuestra boda. ¡Te esperamos!">
+    <meta property="og:image" content="sources/img1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Invitación - Boda Dalia & Josué">
+    <meta name="twitter:description" content="Acompáñanos el 17 de agosto a celebrar nuestra boda. ¡Te esperamos!">
+    <meta name="twitter:image" content="sources/img1.png">
+    <style>
+      /* Confeti de corazones */
+      #heart-confetti-container {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 9999;
+      }
+      .heart-confetti {
+        position: absolute;
+        top: -10vh;
+        line-height: 1;
+        will-change: transform, opacity;
+        animation: heart-fall var(--fall, 6s) linear forwards;
+      }
+      .heart-confetti .heart-inner {
+        display: inline-block;
+        animation: heart-spin var(--spin, 3s) ease-in-out infinite;
+      }
+      @keyframes heart-fall {
+        to { transform: translateY(110vh); opacity: 0.95; }
+      }
+      @keyframes heart-spin {
+        0%   { transform: rotate(0deg); }
+        50%  { transform: rotate(180deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Microinteracciones: fade-in al hacer scroll y hover suave en botones */
+      .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms ease; }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+      .btn-outline { transition: transform 160ms ease, box-shadow 160ms ease; }
+      .btn-outline:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(135, 9, 37, 0.18); }
+    </style>
 </head>
 <body>
+    <div id="heart-confetti-container"></div>
     <div class="invitation-container">
         <!-- SVG floral decorativo arriba -->
         <div class="floral-top">
