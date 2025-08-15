@@ -64,6 +64,25 @@ logAfterOneMillisecond();
         launchHearts({ count: 40, colors: ['#e63946', '#870925', '#ff7a90', '#f1a7b5'], durationRange: [5, 8] });
     }, 400);
 
+    // Iniciar confeti de corazones permanente
+    startContinuousHearts();
+
+    // Microinteracciones adicionales sin cambiar diseño
+    initButtonRipple();
+    initHeaderParallaxTilt();
+
+    // Pausar/resumir el confeti cuando la pestaña no está visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (window.__heartsIntervalId) {
+                clearInterval(window.__heartsIntervalId);
+                window.__heartsIntervalId = null;
+            }
+        } else {
+            startContinuousHearts();
+        }
+    });
+
     // IntersectionObserver para animaciones fade-in al hacer scroll
     try {
         const observer = new IntersectionObserver((entries, obs) => {
@@ -161,4 +180,100 @@ function launchHearts(options = {}) {
         };
         heart.addEventListener('animationend', cleanup);
     }
+}
+
+// Spawner continuo de corazones
+function startContinuousHearts(options = {}) {
+    // Evitar múltiples intervalos activos
+    if (window.__heartsIntervalId) return;
+
+    const {
+        tickMs = 900,          // cada cuánto cae un grupo
+        countPerTick = 10,     // cuántos corazones por grupo
+        colors = ['#e63946', '#870925', '#ff7a90', '#f1a7b5'],
+        durationRange = [6, 10]
+    } = options;
+
+    window.__heartsIntervalId = setInterval(() => {
+        // Si la pestaña está oculta, no generamos para ahorrar recursos
+        if (document.hidden) return;
+        launchHearts({ count: countPerTick, colors, durationRange, spawnArea: { left: -5, right: 105 } });
+    }, tickMs);
+}
+
+// ==========================
+// Efecto ripple en botones
+// ==========================
+function initButtonRipple() {
+    document.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('.btn-outline');
+        if (!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const x = ev.clientX - rect.left;
+        const y = ev.clientY - rect.top;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+    });
+}
+
+// ======================================
+// Parallax y tilt ligero en el header
+// ======================================
+function initHeaderParallaxTilt() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    // Parallax suave en scroll
+    let ticking = false;
+    const onScroll = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const offset = window.scrollY * 0.25; // factor de parallax
+                header.style.backgroundPositionY = `calc(50% + ${offset}px)`;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Tilt muy sutil al mover el mouse
+    let tiltRAF;
+    header.addEventListener('mousemove', (ev) => {
+        const rect = header.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (ev.clientX - cx) / rect.width;  // -0.5..0.5 aprox
+        const dy = (ev.clientY - cy) / rect.height; // -0.5..0.5 aprox
+        cancelAnimationFrame(tiltRAF);
+        tiltRAF = requestAnimationFrame(() => {
+            header.style.transform = `perspective(800px) rotateX(${(-dy * 3).toFixed(2)}deg) rotateY(${(dx * 3).toFixed(2)}deg)`;
+        });
+    });
+    header.addEventListener('mouseleave', () => {
+        header.style.transform = '';
+    });
+}
+
+function playAudioOnce() {
+    const audio = document.getElementById("wedding-audio");
+    if (audio) {
+        audio.play().then(() => {
+            console.log("Audio reproducido correctamente.");
+        }).catch((err) => {
+            console.warn("Fallo al reproducir audio:", err);
+        });
+    }
+    document.removeEventListener('click', playAudioOnce);
+}
+
+function logAfterOneMillisecond() {
+    setTimeout(() => {
+        console.log('Ha pasado un milisegundo desde que se abrió o recargó la página.');
+        document.addEventListener('click', playAudioOnce);
+    }, 1);
 }

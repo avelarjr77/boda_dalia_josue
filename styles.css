@@ -188,11 +188,30 @@ footer {
     text-decoration: none;
     box-shadow: 0 2px 8px rgba(135,9,37,0.15);
     transition: background 0.2s, color 0.2s;
+    position: relative; /* necesario para ripple */
+    overflow: hidden;   /* recorta el ripple al borde */
 }
 .btn-outline:hover,
 .btn-outline:active {
     background: #870925;
     color: #fff;
+}
+
+/* Efecto ripple para botones (solo visible al click) */
+.btn-outline .ripple {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.35);
+    animation: ripple-expand 600ms ease-out;
+}
+
+@keyframes ripple-expand {
+    from { width: 0; height: 0; opacity: 0.45; }
+    to   { width: 420px; height: 420px; opacity: 0; }
 }
 
  @media (max-width: 500px) {
