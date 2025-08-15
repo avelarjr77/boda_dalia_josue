@@ -15,6 +15,113 @@ logAfterOneMillisecond();
         });
     }
 
+// ==========================
+// Fuegos artificiales (canvas)
+// ==========================
+function launchFireworks({ durationMs = 12000 } = {}) {
+    if (window.__fireworksActive) return;
+    window.__fireworksActive = true;
+
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.inset = '0';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '10000';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function resize() {
+        canvas.width = Math.floor(innerWidth * dpr);
+        canvas.height = Math.floor(innerHeight * dpr);
+        canvas.style.width = innerWidth + 'px';
+        canvas.style.height = innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const gravity = 0.12;
+    const friction = 0.985;
+    const colors = ['#ffd166', '#ef476f', '#06d6a0', '#118ab2', '#f78c6b', '#ffffff'];
+
+    const particles = [];
+    function spawnBurst(x, y) {
+        const count = 60 + Math.floor(Math.random() * 40);
+        for (let i = 0; i < count; i++) {
+            const angle = (Math.PI * 2 * i) / count + Math.random() * 0.2;
+            const speed = 2 + Math.random() * 3.5;
+            particles.push({
+                x, y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed - 1.2,
+                life: 60 + Math.random() * 30,
+                age: 0,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                size: 2 + Math.random() * 2.5,
+                alpha: 1
+            });
+        }
+    }
+
+    let lastTime = performance.now();
+    let elapsed = 0;
+    let rafId;
+
+    function loop(now) {
+        const dt = Math.min(33, now - lastTime);
+        lastTime = now;
+        elapsed += dt;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Emitir ráfagas periódicas desde distintas posiciones
+        if (elapsed < durationMs && Math.random() < 0.08) {
+            const x = 40 + Math.random() * (innerWidth - 80);
+            const y = innerHeight * (0.35 + Math.random() * 0.2);
+            spawnBurst(x, y);
+        }
+
+        // Actualizar partículas
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.vx *= friction;
+            p.vy = p.vy * friction + gravity * 0.6;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.age++;
+            p.alpha = Math.max(0, 1 - p.age / p.life);
+
+            if (p.alpha <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+        }
+
+        if (elapsed >= durationMs && particles.length === 0) {
+            cleanup();
+            return;
+        }
+        rafId = requestAnimationFrame(loop);
+    }
+
+    function cleanup() {
+        cancelAnimationFrame(rafId);
+        window.removeEventListener('resize', resize);
+        canvas.remove();
+        window.__fireworksActive = false;
+    }
+
+    rafId = requestAnimationFrame(loop);
+}
+
     // Temporizador de cuenta regresiva
     // Fecha objetivo: 17 de agosto del año actual
     const now = new Date();
@@ -26,6 +133,8 @@ logAfterOneMillisecond();
         // Si la fecha ya pasó, dejar la cuenta regresiva en cero y no avanzar al próximo año
         targetDate.setTime(now.getTime());
     }
+
+    // launchFireworks({ durationMs: 10000 });
 
     function updateCountdown() {
         const now = new Date();
@@ -43,7 +152,10 @@ logAfterOneMillisecond();
             // Lanzar confeti de corazones una sola vez cuando termine la cuenta
             if (!window.__heartsEndCelebrated) {
                 window.__heartsEndCelebrated = true;
-                launchHearts({ count: 120, colors: ['#e63946', '#870925', '#ff7a90', '#f1a7b5'], durationRange: [6, 10] });
+                // launchHearts({ count: 120, colors: ['#e63946', '#870925', '#ff7a90', '#f1a7b5'], durationRange: [6, 10] });
+                // Fuegos artificiales por tiempo limitado
+                launchFireworks({ durationMs: 10000 });
+
             }
             return;
         }
